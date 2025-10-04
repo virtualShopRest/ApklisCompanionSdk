@@ -4,7 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="separator">@color/grey_900</color>
     <color name="grey_900">#ff212121</color>
-    <color name="background_color_primary">#FFFFFF</color>
+    <color name="background_color_primary">#12030A</color>
+
     <color name="colorPrimary">@color/orange_500</color>
     <color name="colorPrimaryDark">@color/orange_700</color>
     <color name="colorPrimaryLight">@color/orange_200</color>

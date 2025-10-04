@@ -1,6 +1,9 @@
 # ApklisCompanion Sdk
 
-[![](https://jitpack.io/v/tuusuario/ApklisLibrary.svg)](https://jitpack.io/#tuusuario/ApklisLibrary)
+[![](https://jitpack.io/v/virtualShopRest/ApklisCompanionTestApp.svg)](https://jitpack.io/#virtualShopRest/ApklisCompanionTestApp)
+
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Librería Android para verificar licencias y compras en Apklis usando Kotlin DSL y TOML.
 

@@ -55,15 +55,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.logger)
+
 }
 
 // Configuración de publicación
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.tuusuario"
-            artifactId = "apklis-library"
-            version = "1.0.0"
+            groupId = "cu.apklis.companion.sdk"
+            artifactId = "apkliscompanion-sdk"
+            version = libs.versions.apklisCompanionSdk.get()
 
             afterEvaluate {
                 from(components["release"])
@@ -72,7 +74,7 @@ publishing {
             pom {
                 name.set("Apklis Library")
                 description.set("Android library for Apklis license and purchase verification")
-                url.set("https://github.com/tuusuario/ApklisLibrary")
+                url.set("https://github.com/virtualShopRest/ApklisCompanionTestApp")
 
                 licenses {
                     license {
@@ -83,16 +85,16 @@ publishing {
 
                 developers {
                     developer {
-                        id.set("tuusuario")
-                        name.set("Tu Nombre")
-                        email.set("tu@email.com")
+                        id.set("virtualShopRest")
+                        name.set("VirtualShop")
+                        email.set("virtual.shop.rest@gmail.com")
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/tuusuario/ApklisLibrary.git")
-                    developerConnection.set("scm:git:ssh://github.com:tuusuario/ApklisLibrary.git")
-                    url.set("https://github.com/tuusuario/ApklisLibrary/tree/main")
+                    connection.set("scm:git:git://github.com/virtualShopRest/ApklisCompanionTestApp.git")
+                    developerConnection.set("scm:git:ssh://github.com:virtualShopRest/ApklisCompanionTestApp.git")
+                    url.set("https://github.com/virtualShopRest/ApklisCompanionTestApp/tree/master")
                 }
             }
         }
