@@ -7,6 +7,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.net.toUri
 import com.orhanobut.logger.Logger
+import java.security.KeyFactory
+import java.security.spec.X509EncodedKeySpec
+import java.util.Base64
+import java.util.UUID
+import java.util.regex.Pattern
 
 object Utils {
     private const val LICENSE_SCHEME = "apklis_license_payment_check"
@@ -15,6 +20,67 @@ object Utils {
     private const val LICENSE_UUID = "licenseUuid"
     private const val APKLIS_APP_ID = "cu.uci.android.apklis"
     private const val APKLIS_COMPANION_APP_ID = "cu.apklis.companion"
+
+
+    /**
+     * Valida el formato de un nombre de paquete Android/Java
+     */
+    fun validatePackageName(packageName: String): Boolean {
+        if (packageName.isBlank()) return false
+
+        // Patrón para validar nombre de paquete: debe contener al menos un punto
+        // y cada segmento debe empezar con letra y contener solo letras, números y guiones bajos
+        val packagePattern = "^[a-zA-Z][a-zA-Z0-9_]*(?:\\.[a-zA-Z][a-zA-Z0-9_]*)+$"
+        return Pattern.matches(packagePattern, packageName)
+    }
+
+    /**
+     * Valida el formato de un UUID
+     */
+    fun validateUUID(uuidString: String): Boolean {
+        return try {
+            UUID.fromString(uuidString)
+            true
+        } catch (e: IllegalArgumentException) {
+            false
+        }
+    }
+
+    /**
+     * Valida el formato de una clave pública PEM
+     */
+    fun validatePublicKeyPEM(pemKey: String): Boolean {
+        if (pemKey.isBlank()) return false
+
+        return try {
+            // Verificar que tenga el formato básico de PEM
+            if (!pemKey.contains("-----BEGIN PUBLIC KEY-----") ||
+                !pemKey.contains("-----END PUBLIC KEY-----")
+            ) {
+                return false
+            }
+
+            // Extraer el contenido base64
+            val base64Content = pemKey
+                .replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")
+                .replace("\\s".toRegex(), "") // Remover espacios en blanco
+
+            // Intentar decodificar y crear la clave pública
+            val keyBytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getDecoder().decode(base64Content)
+            } else {
+                android.util.Base64.decode(base64Content, android.util.Base64.DEFAULT)
+            }
+            val spec = X509EncodedKeySpec(keyBytes)
+            val keyFactory = KeyFactory.getInstance("RSA")
+            keyFactory.generatePublic(spec)
+
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 
     private fun isAppInstalled(context: Context, packageName: String): Boolean {
         return try {

@@ -50,6 +50,11 @@ class ApklisCompanionFragment : Fragment() {
                     focusView = binding.packageId
                     cancel = true
                 }
+                if (!Utils.validatePackageName(packageId)) {
+                    binding.packageIdTi.error = getString(R.string.error_package_id)
+                    focusView = binding.packageId
+                    cancel = true
+                }
                 if (cancel) {
                     focusView?.requestFocus()
                 } else {
@@ -87,16 +92,34 @@ class ApklisCompanionFragment : Fragment() {
                     focusView = binding.licensePackageId
                     cancel = true
                 }
+                if (!Utils.validatePackageName(packageId)) {
+                    binding.licensePackageIdTi.error = getString(R.string.error_package_id)
+                    focusView = binding.licensePackageId
+                    cancel = true
+                }
                 if (TextUtils.isEmpty(pemKey)) {
                     binding.publicPemKeyTi.error = getString(R.string.error_field_required)
                     focusView = binding.publicPemKey
                     cancel = true
                 }
+
+                if (!Utils.validatePublicKeyPEM(pemKey)) {
+                    binding.publicPemKeyTi.error = getString(R.string.error_pem_format)
+                    focusView = binding.publicPemKey
+                    cancel = true
+                }
+
                 if (TextUtils.isEmpty(licenseUuid)) {
                     binding.licenceUuidTi.error = getString(R.string.error_field_required)
                     focusView = binding.licenceUuid
                     cancel = true
                 }
+                if (!Utils.validateUUID(licenseUuid)) {
+                    binding.licenceUuidTi.error = getString(R.string.error_uuid_required)
+                    focusView = binding.licenceUuid
+                    cancel = true
+                }
+
                 if (cancel) {
                     focusView?.requestFocus()
                 } else {
@@ -112,6 +135,11 @@ class ApklisCompanionFragment : Fragment() {
 
                 if (TextUtils.isEmpty(packageId)) {
                     binding.licensePackageIdTi.error = getString(R.string.error_field_required)
+                    focusView = binding.licensePackageId
+                    cancel = true
+                }
+                if (!Utils.validatePackageName(packageId)) {
+                    binding.licensePackageIdTi.error = getString(R.string.error_package_id)
                     focusView = binding.licensePackageId
                     cancel = true
                 }

@@ -12,6 +12,9 @@
     <string name="result">Respuesta</string>
     <string name="close">Cerrar</string>
     <string name="open">Abrir</string>
+    <string name="error_package_id">El nombre del paquete no es válido</string>
+    <string name="error_pem_format">El formato de la llave PEM no es válida</string>
+    <string name="error_uuid_required">El Uuid no es válido</string>
 
 
 </resources>

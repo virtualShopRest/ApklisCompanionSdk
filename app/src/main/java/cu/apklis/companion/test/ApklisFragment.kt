@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.apklis.companion.sdk.core.Apklis
+import cu.apklis.companion.sdk.utils.Utils
 import cu.apklis.companion.test.databinding.FragmentApklisBinding
 import kotlinx.coroutines.launch
 
@@ -44,6 +45,11 @@ class ApklisFragment : Fragment() {
                 var focusView: View? = null
                 if (TextUtils.isEmpty(packageId)) {
                     binding.packageIdTi.error = getString(R.string.error_field_required)
+                    focusView = binding.packageId
+                    cancel = true
+                }
+                if (!Utils.validatePackageName(packageId)) {
+                    binding.packageIdTi.error = getString(R.string.error_package_id)
                     focusView = binding.packageId
                     cancel = true
                 }
