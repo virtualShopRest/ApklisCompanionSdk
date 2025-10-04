@@ -302,7 +302,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](https://opens
 
 📖 Wiki: [Documentación completa](https://deepwiki.com/virtualShopRest/ApklisCompanionSdk)
 
-📱 Aplicación de prueba: [Descargar](https://github.com/virtualShopRest/ApklisCompanionSdk/app/release/app-release.apk)
+📱 Aplicación de prueba: [Descargar](https://github.com/virtualShopRest/ApklisCompanionSdk/blob/master/app/release/app-release.apk)
 
 ## 🙏 Agradecimientos
 
