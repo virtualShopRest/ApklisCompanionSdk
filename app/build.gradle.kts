@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -30,8 +32,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    // Add or modify the kotlin block like this:
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11) // Or JVM_11, JVM_17, etc.
+            // You might have other compiler options here
+        }
     }
     buildFeatures {
         viewBinding = true

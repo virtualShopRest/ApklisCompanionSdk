@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -15,7 +17,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         // Información de la librería
-        buildConfigField("String", "LIBRARY_VERSION", "\"1.0.0\"")
+        buildConfigField("String", "LIBRARY_VERSION", "\"${libs.versions.apklisCompanionSdk.get()}\"")
         buildConfigField("String", "LIBRARY_NAME", "\"ApklisCompanionSdk\"")
     }
 
@@ -32,8 +34,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    // Add or modify the kotlin block like this:
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11) // Or JVM_11, JVM_17, etc.
+            // You might have other compiler options here
+        }
     }
     buildFeatures {
         buildConfig = true
