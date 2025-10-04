@@ -72,9 +72,9 @@ publishing {
             }
 
             pom {
-                name.set("Apklis Library")
-                description.set("Android library for Apklis license and purchase verification")
-                url.set("https://github.com/virtualShopRest/ApklisCompanionTestApp")
+                name.set("ApklisCompanion SDK")
+                description.set("ApklisCompanion SDK para verificación de compras y licencias de Apklis")
+                url.set("https://github.com/virtualShopRest/ApklisCompanionSdk")
 
                 licenses {
                     license {
@@ -92,9 +92,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/virtualShopRest/ApklisCompanionTestApp.git")
-                    developerConnection.set("scm:git:ssh://github.com:virtualShopRest/ApklisCompanionTestApp.git")
-                    url.set("https://github.com/virtualShopRest/ApklisCompanionTestApp/tree/master")
+                    connection.set("scm:git:git://github.com/virtualShopRest/ApklisCompanionSdk.git")
+                    developerConnection.set("scm:git:ssh://github.com:virtualShopRest/ApklisCompanionSdk.git")
+                    url.set("https://github.com/virtualShopRest/ApklisCompanionSdk/tree/master")
                 }
             }
         }
