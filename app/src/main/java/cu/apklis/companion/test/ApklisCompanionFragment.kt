@@ -72,9 +72,31 @@ class ApklisCompanionFragment : Fragment() {
                         }
 
                         .show()
-                    Log.i("ApklisCompanionFragment", "Result: $result")
+                    Log.i("ApklisCompanionFragment", "Result: ${result}")
                 }
 
+            }
+
+            launchButton.setOnClickListener {
+                binding.packageIdTi.error = null
+                val packageId = binding.packageId.text.toString().trim()
+                var cancel = false
+                var focusView: View? = null
+                if (TextUtils.isEmpty(packageId)) {
+                    binding.packageIdTi.error = getString(R.string.error_field_required)
+                    focusView = binding.packageId
+                    cancel = true
+                }
+                if (!Utils.validatePackageName(packageId)) {
+                    binding.packageIdTi.error = getString(R.string.error_package_id)
+                    focusView = binding.packageId
+                    cancel = true
+                }
+                if (cancel) {
+                    focusView?.requestFocus()
+                } else {
+                    Utils.openApklisCompanionLink(requireContext(), packageId)
+                }
             }
 
 
@@ -123,7 +145,7 @@ class ApklisCompanionFragment : Fragment() {
                 if (cancel) {
                     focusView?.requestFocus()
                 } else {
-                    Utils.openApklisCompanionLink(requireContext(), packageId, licenseUuid, pemKey)
+                    Utils.openApklisCompanionLicenseLink(requireContext(), packageId, licenseUuid, pemKey)
 
                 }
             }

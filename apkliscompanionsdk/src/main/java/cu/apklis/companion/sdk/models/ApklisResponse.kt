@@ -1,6 +1,21 @@
+/*
+ * ApklisCompanion SDK
+ * Copyright (c) 2025 VirtualShopRest
+ *
+ * This library provides easy integration with Apklis and ApklisCompanion
+ * payment verification systems for Android applications.
+ *
+ * Licensed under the MIT License.
+ * See LICENSE file in the project root for full license information.
+ *
+ * GitHub: https://github.com/virtualShopRest/ApklisCompanionSdk
+ *
+ */
+
+
 package cu.apklis.companion.sdk.models
 
-class ApklisResponse(
+data class ApklisResponse(
     var userName: String? = null,
     var status: PaymentStatus = PaymentStatus.NOT_PAYED,
     var message: Exception? = null
@@ -19,7 +34,7 @@ class ApklisResponse(
 
 }
 
-class ApklisLicenseResponse(
+data class ApklisLicenseResponse(
     var licenseUuid: String? = null,
     var uuid: String? = null,
     var expiredIn: String? = null,

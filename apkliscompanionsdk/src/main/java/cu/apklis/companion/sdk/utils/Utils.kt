@@ -1,3 +1,17 @@
+/*
+ * ApklisCompanion SDK
+ * Copyright (c) 2025 VirtualShopRest
+ *
+ * This library provides easy integration with Apklis and ApklisCompanion
+ * payment verification systems for Android applications.
+ *
+ * Licensed under the MIT License.
+ * See LICENSE file in the project root for full license information.
+ *
+ * GitHub: https://github.com/virtualShopRest/ApklisCompanionSdk
+ *
+ */
+
 package cu.apklis.companion.sdk.utils
 
 import android.content.Context
@@ -103,16 +117,9 @@ object Utils {
 
     fun openApklisLink(context: Context, link: String): Boolean {
 
-        val isApklisCompanionInstalled = isAppInstalled(context, APKLIS_COMPANION_APP_ID)
         val isApklisInstalled = isAppInstalled(context, APKLIS_APP_ID)
 
-        return if (isApklisCompanionInstalled && openApkLisPaymentCheckLink(
-                context,
-                getApklisCompanionUrl(link)
-            )
-        )
-            true
-        else if (isApklisInstalled && openApkLisLink(
+        return if (isApklisInstalled && openApkLisLink(
                 context,
                 getApklisUrl(link)
             )
@@ -131,7 +138,30 @@ object Utils {
 
     }
 
-    fun openApklisCompanionLink(
+    fun openApklisCompanionLink(context: Context, link: String): Boolean {
+
+        val isApklisCompanionInstalled = isAppInstalled(context, APKLIS_COMPANION_APP_ID)
+
+        return if (isApklisCompanionInstalled && openApkLisPaymentCheckLink(
+                context,
+                getApklisCompanionUrl(link)
+            )
+        )
+            true
+        else {
+            try {
+                context.startActivity(Intent(Intent.ACTION_VIEW, link.toUri()))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            Logger.e("La app ApklisCompanion no está instalada en el dispositivo")
+
+            false
+        }
+
+    }
+
+    fun openApklisCompanionLicenseLink(
         context: Context,
         applicationId: String,
         licenseUuid: String,
@@ -190,15 +220,15 @@ object Utils {
     }
 
 
-    fun getApklisUrl(applicationId: String): String {
+    private fun getApklisUrl(applicationId: String): String {
         return "https://www.apklis.cu/application/$applicationId"
     }
 
-    fun getApklisCompanionUrl(applicationId: String): String {
+    private fun getApklisCompanionUrl(applicationId: String): String {
         return "${APP_SCHEME}://$applicationId"
     }
 
-    fun getApklisCompanionLicenseUrl(
+    private fun getApklisCompanionLicenseUrl(
         applicationId: String,
         licenseUuid: String,
         publicKeyPem: String
