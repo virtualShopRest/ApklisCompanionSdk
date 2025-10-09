@@ -34,6 +34,8 @@ object Utils {
     private const val LICENSE_UUID = "licenseUuid"
     private const val APKLIS_APP_ID = "cu.uci.android.apklis"
     private const val APKLIS_COMPANION_APP_ID = "cu.apklis.companion"
+    private const val APKLIS_COMPANION_WEB_URL = "https://www.megashopcuba.com/apps/apkliscompanion"
+
 
 
     /**
@@ -96,6 +98,10 @@ object Utils {
         }
     }
 
+    fun openApklisCompanionWeb(context: Context){
+        context.startActivity(Intent(Intent.ACTION_VIEW, APKLIS_COMPANION_WEB_URL.toUri()))
+    }
+
     private fun isAppInstalled(context: Context, packageName: String): Boolean {
         return try {
             context.getPackageInfoCompat(packageName, 0)
@@ -115,19 +121,38 @@ object Utils {
             packageManager.getPackageInfo(packageName, flags)
         }
 
-    fun openApklisLink(context: Context, link: String): Boolean {
-
+    fun openAppLink(context: Context, appPackage: String) {
+        val isApklisCompanionInstalled = isAppInstalled(context, APKLIS_COMPANION_APP_ID)
         val isApklisInstalled = isAppInstalled(context, APKLIS_APP_ID)
 
+        if (isApklisCompanionInstalled) {
+            openApklisCompanionLink(context, appPackage)
+        } else if (isApklisInstalled) {
+            openApklisLink(context, appPackage)
+        } else {
+            try {
+                val fullLink = getApklisUrl(appPackage)
+                context.startActivity(Intent(Intent.ACTION_VIEW, fullLink.toUri()))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    fun openApklisLink(context: Context, appPackage: String): Boolean {
+
+        val isApklisInstalled = isAppInstalled(context, APKLIS_APP_ID)
+        val fullLink = getApklisUrl(appPackage)
         return if (isApklisInstalled && openApkLisLink(
                 context,
-                getApklisUrl(link)
+                fullLink
             )
         )
             true
         else {
             try {
-                context.startActivity(Intent(Intent.ACTION_VIEW, link.toUri()))
+                context.startActivity(Intent(Intent.ACTION_VIEW, fullLink.toUri()))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -138,19 +163,19 @@ object Utils {
 
     }
 
-    fun openApklisCompanionLink(context: Context, link: String): Boolean {
+    fun openApklisCompanionLink(context: Context, appPackage: String): Boolean {
 
         val isApklisCompanionInstalled = isAppInstalled(context, APKLIS_COMPANION_APP_ID)
-
+        val fullLink = getApklisCompanionUrl(appPackage)
         return if (isApklisCompanionInstalled && openApkLisPaymentCheckLink(
                 context,
-                getApklisCompanionUrl(link)
+                fullLink
             )
         )
             true
         else {
             try {
-                context.startActivity(Intent(Intent.ACTION_VIEW, link.toUri()))
+                context.startActivity(Intent(Intent.ACTION_VIEW, fullLink.toUri()))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
